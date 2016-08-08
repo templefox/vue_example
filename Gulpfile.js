@@ -60,7 +60,9 @@ gulp.task('js:bundle', function () {
             }
             return relativeUrl;
         }})
-    .transform(babelify)
+    .transform(babelify.configure({
+        ignore: /wijmo/
+    }))
     .bundle()
     .on('error', function(err) {
         console.log(err.toString())

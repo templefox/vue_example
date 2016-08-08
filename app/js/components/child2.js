@@ -1,31 +1,34 @@
 import Vue from 'vue'
 import $ from '../lib/jquery_ui.js'
 
-console.log($.fn)
-
 export default Vue.extend({
 	template: `
 		<div>
-			<div id="date"> child2 </div>
 			<div id="pivot"></div>
 		</div>
 	`,
+	props: ['message'],
 	activate: function(done) {
+		console.log("load2")
 		console.log("load2")
 		done()
 	},
 	ready:function() {
-		$("#date").datepicker()
-		$("#pivot").pivot(
-            [
-                {color: "blue", shape: "circle"},
-                {color: "red", shape: "triangle"}
-            ],
-            {
-                rows: ["color"],
-                cols: ["shape"]
-            }
-        );
-		console.log($.pivotUtilities)
+		this.render(JSON.parse('[]'))
+	},
+	methods:{
+		render:function(jsonData) {
+			var sum = $.pivotUtilities.aggregatorTemplates.sum;
+        	var numberFormat = $.pivotUtilities.numberFormat;
+        	var intFormat = numberFormat({digitsAfterDecimal: 0}); 
+			$("#pivot").pivot(
+            	jsonData,
+	            {
+	                rows: ["bp"],
+	                cols: ["date"],
+	                aggregator: sum(intFormat)(["value"])
+	            }
+        	);
+		}
 	}
 })
