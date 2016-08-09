@@ -4,6 +4,7 @@ import $ from '../lib/jquery_ui.js'
 export default Vue.extend({
 	template: `
 		<div>
+			<div id="date"></div>
 			<div id="pivot"></div>
 		</div>
 	`,
@@ -14,6 +15,7 @@ export default Vue.extend({
 		done()
 	},
 	ready:function() {
+		$("#date").datepicker()
 		this.render(JSON.parse('[]'))
 	},
 	methods:{

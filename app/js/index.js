@@ -16,7 +16,7 @@ var rootVue = Vue.extend({
 		`,
 	data: function() {
 		return { 
-			view: "my-component",
+			view: "m-com",
 			message: "123",
 			data: JSON.stringify([])
 		}

@@ -19,7 +19,7 @@ gulp.task('connect',function() {
     });
 })
 
-gulp.task('build',['js:bundle','r:copy'])
+gulp.task('build',['js:bundle','r:copy','globalJS:copy'])
 gulp.task('watch',['watch:static','watch:js'])
 
 gulp.task('r:copy',function() {
@@ -33,10 +33,20 @@ gulp.task('r:copy',function() {
 })
 
 gulp.task('globalJS:copy',function() {
-    return gulp.src(['./app/**/*',
-        '!./app/**/*.js'
-        ])
-    .pipe(gulp.dest('./build/'))
+    var bundler = browserify({
+        debug: true,
+    }).require(
+        [
+{file:'./node_modules/jquery/dist/jquery.js',expose:'jquery'},
+{file:'vue',expose:'vue'}
+        ]
+    )
+
+    return bundler
+        .bundle()
+        .pipe(source('./node_modules/jquery/dist/jquery.js'))
+        .pipe(rename('jquery.js'))
+        .pipe(gulp.dest('./build/js/'))
 })
  
 gulp.task('js:bundle', function () {
@@ -45,7 +55,7 @@ gulp.task('js:bundle', function () {
     debug: true,  
     cache: {},
     packageCache: {}
-  })
+  }).external(['jquery','vue'])
  
   return bundler
     .add('./app/js/index.js')
