@@ -15,7 +15,8 @@ gulp.task('realtime', ['default','watch:static','watch:js'])
 gulp.task('connect',function() {
     connect.server({
         root: 'build',
-        livereload: true
+        livereload: true,
+        host: '0.0.0.0'
     });
 })
 

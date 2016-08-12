@@ -2,12 +2,13 @@ import Vue from 'vue'
 import "../../css/wijmo.min.css"
 import "../../css/wijmo.theme.material.min.css"
 
-window.wijmo = {}
-require('../lib/wijmo.min.js')
-require('../lib/wijmo.input.min.js')
-require('../lib/wijmo.grid.min.js')
-require('../lib/wijmo.grid.filter.min.js')
-require('../lib/wijmo.olap.min.js')
+// window.wijmo = {}
+// require('../lib/wijmo.min.js')
+// require('../lib/wijmo.input.min.js')
+// require('../lib/wijmo.grid.min.js')
+// require('../lib/wijmo.grid.filter.min.js')
+// require('../lib/wijmo.olap.min.js')
+// var wijmo = window.wijmo
 
 export default Vue.extend({
 	template: `<div>
@@ -23,9 +24,10 @@ export default Vue.extend({
 	},
 	methods:{
 		render:function(jsonData) {
+			debugger
 			var app = {}
-			app.panel = new window.wijmo.olap.PivotPanel('#pivotPanel');
-			app.pivotGrid = new window.wijmo.olap.PivotGrid('#pivotGrid', {
+			app.panel = new wijmo.olap.PivotPanel('#pivotPanel');
+			app.pivotGrid = new wijmo.olap.PivotGrid('#pivotGrid', {
 				itemsSource: app.panel
 			});
 

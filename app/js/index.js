@@ -1,17 +1,19 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import myComponent from './components/child'
 import mCom from './components/child2'
+import topHead from './components/head'
+import main from './components/main-page'
 import '../css/app.css'
 import $ from 'jquery'
+
+Vue.use(VueRouter)
 
 var rootVue = Vue.extend({
 	template:`
 		<div>
-			<button v-on:click="load">Load</button>
-			<component :is="view" :message.sync="message">
-				<p slot="one">123</p>
-				<p slot="two">234</p>
-			</component>
+			<top-head schema="sbodemous" user="manager"></top-head>
+			<main></main>
 		</div>
 		`,
 	data: function() {
@@ -22,8 +24,10 @@ var rootVue = Vue.extend({
 		}
 	},
 	components: {
+		topHead,
 		myComponent,
 		mCom,
+		main,
 	},
 	
 	ready:function() {
@@ -33,7 +37,7 @@ var rootVue = Vue.extend({
 	methods: {
 		load:function(event) {
 			$.getJSON("example/data.json",(data) => {
-				this.$children[0].render(data)
+				this.$refs.t.render(data)
 			})
 		}
 	}
